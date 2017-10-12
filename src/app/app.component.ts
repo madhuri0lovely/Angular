@@ -3,13 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <p>
-      Angular Works!
-    </p>
-    <my-first-component></my-first-component>
+    <product-component></product-component>
   `,
   styles: []
 })
 export class AppComponent {
-  title = 'app';
+  title = 'MyApp';
 }
