@@ -1,4 +1,7 @@
-import { ProductService } from './../product.service';
+import { OnInit } from '@angular/core';
+import { CartItem } from './cart';
+
+import { ProductService } from './product.service';
 import { Product } from './../product';
 
 import { Component, Input, EventEmitter, Output , OnChanges} from '@angular/core';
@@ -33,22 +36,20 @@ import { Component, Input, EventEmitter, Output , OnChanges} from '@angular/core
   `,
     styles:[]
 })
-export class CartDetailComponent implements OnChanges{
+export class CartDetailComponent implements OnInit{
   @Input() product: Product;
   total:number =0 ;
-
-  //productCartList//:Array<Product>;
-
-  cart = this.productService.items;
-
+  cart:CartItem[]=[];
   constructor(private productService: ProductService) {
   }
 
-  ngOnChanges(){
-    console.log(this.productService.items);
-    
-    
+  ngOnInit(){
+
+    this.cart = this.productService.getitemsInCart();
+
+    //this.productService.getitemsInCart().then(cart => this.cart = cart);
   }
+
   calculateSum(){
     this.total = this.productService.findSum();
     return this.total;

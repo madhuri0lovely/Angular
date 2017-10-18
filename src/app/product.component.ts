@@ -1,3 +1,4 @@
+import { ProdService } from './prod.service';
 import { Product, PRODUCTS } from './product';
 import { Component } from '@angular/core';
 
@@ -13,6 +14,14 @@ import { Component } from '@angular/core';
       <span class="badge">{{product.price}}</span><span class="badge">{{product.description}}</span>
     </li>
     </ul>
+    <button (click)="showNewFormTemplate()">Add Product by template</button>
+    <button (click)="showNewFormReactive()">Add Product by Reactive</button>
+
+    <new-product *ngIf ="newProductTemplate"></new-product>
+    <new-product-reactive *ngIf ="newProductReactive"></new-product-reactive>
+    <hr>
+
+
     <product-detail [product]="selectedProduct" (requestDeleteEvent)="deleteProduct($event)"></product-detail>
     <!-- <button (click)="changeProduct()">Change Product</button> -->
   
@@ -25,11 +34,22 @@ export class ProductComponent {
   title = "Products";
   
   //assigning the whole list of products
-  products = PRODUCTS;
+  products;
 
   //declaring the selected product of type Product
   selectedProduct: Product;
+
+  constructor(private prodService: ProdService) { }
+
   
+  ngOnInit(): void {
+    this.products = this.prodService.getProducts();
+  }
+/*
+  ngOnInit(): void {
+    this.prodService.getProducts().then(products => this.products = products);
+  }
+  */
   //on click of particular product in a list,we ae assigning it as selected product
   onSelect(product:Product){
     this.selectedProduct = product;
@@ -60,6 +80,16 @@ export class ProductComponent {
   deleteProduct(product:Product){
     this.products.pop();
   }
+
+  newProductTemplate: boolean;
+  newProductReactive: boolean;
+  
+  showNewFormTemplate() {
+      this.newProductTemplate = !this.newProductTemplate;
+    }
+    showNewFormReactive() {
+      this.newProductReactive = !this.newProductReactive;
+    }
   
 }
 

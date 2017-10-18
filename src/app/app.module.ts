@@ -1,13 +1,16 @@
+import { NewProductReactiveComponent } from './new-product-reactive.component';
+import { NewProductComponent } from './new-product.component';
+import { ProdService } from './prod.service';
+import { ProductService } from './cart/product.service';
 import { CartModule } from './cart/cart.module';
-import { TotalPricePipe } from './cart/totalPrice.pipe';
-import { ProductService } from './product.service';
-import { CartDetailComponent } from './cart/cart-detail.component';
+
 import { BasicHighlightDirective } from './basic-highlight/basic.highlight.directive';
 import { ProductDetailComponent } from './product-detail.component';
 import { ProductComponent } from './product.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -18,13 +21,17 @@ import { AppComponent } from './app.component';
     ProductComponent,
     ProductDetailComponent,
     BasicHighlightDirective,
+    NewProductComponent,
+    NewProductReactiveComponent,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     CartModule
   ],
-  providers: [ProductService],
+  providers: [ProductService,ProdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

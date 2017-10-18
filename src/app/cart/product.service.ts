@@ -1,5 +1,6 @@
-import { CartItem } from './cart/cart';
-import { Product, PRODUCTS } from './product';
+import { CartItem } from './cart';
+import { Product } from './../product';
+
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -10,9 +11,14 @@ export class ProductService {
     sum=0;
     items: CartItem[] = new Array<CartItem>();
 
+    
     getitemsInCart(){
         return this.items;
     }
+    
+    /*getitemsInCart(): Promise<CartItem[]> {
+        return Promise.resolve(this.items);
+      }*/
 
     getData(): Product[] {
         //console.log("service get data method : " + this.productList)

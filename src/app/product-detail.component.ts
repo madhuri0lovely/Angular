@@ -1,6 +1,7 @@
+import { CartItem } from './cart/cart';
 import { Product } from './product';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { ProductService } from './product.service';
+import { ProductService } from './cart/product.service';
 
 @Component({
   selector: 'product-detail',
@@ -27,6 +28,7 @@ import { ProductService } from './product.service';
 export class ProductDetailComponent {
 
   quantity: number;
+  //cart:CartItem[]=[];
 
   constructor(public productService: ProductService) {
 
@@ -51,8 +53,22 @@ export class ProductDetailComponent {
     this.productService.addProduct(this.productToBeAdded, this.quantity);
      
   }
+
+  /*
+  ngOnInit(){
+    this.productService.getitemsInCart().then(val => this.cart = val);
+  }
+  */
+
   NoOfitemsInCart(){
-    return (this.productService.getitemsInCart().length);
+    let cart = this.productService.getitemsInCart();
+    return cart.map(item => item.quantity).
+    reduce((total, current) => (total + current), 0);
+
+        //return this.cart.map(item => item.quantity).
+        //reduce((total, current) => (total + current), 0);
+
+      
   }
 
   showCart: boolean;
